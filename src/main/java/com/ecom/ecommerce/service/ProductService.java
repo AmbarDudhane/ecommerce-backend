@@ -20,11 +20,17 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-//    public Product getProductByName(String name) {
-//        return productRepository.findBy
-//    }
+    public Product getProductByName(String name) {
+        return productRepository.findByName(name);
+    }
 
     public void addProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    public void updateProduct(Product product) {
+        Product p = productRepository.findByName(product.getName());
+        product.setId(p.getId());
         productRepository.save(product);
     }
 
