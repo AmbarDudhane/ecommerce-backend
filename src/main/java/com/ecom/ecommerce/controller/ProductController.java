@@ -2,13 +2,15 @@ package com.ecom.ecommerce.controller;
 
 import com.ecom.ecommerce.model.Product;
 import com.ecom.ecommerce.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -19,6 +21,11 @@ public class ProductController {
         return "Hello World";
     }
 
+    @GetMapping("/csrf-token")
+    public CsrfToken getCsrfToken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
+    }
+    
     @GetMapping("/products")
     public List<Product> getAllProducts() {
         return productService.getProducts();
